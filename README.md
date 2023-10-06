@@ -5,6 +5,15 @@
 - Power profiles (and graphics-switching profiles on applicable systems) in a menu in the top panel
 - Prompting to switch graphics modes when necessary to use a hot-plugged display
 
-_This is a fork that supports Gnome v43+ and uses its own panel icon instead of integrating it to the battery menu_
+_This is a fork that supports Gnome v43+ and uses its own panel icon instead of integrating it to the battery menu._
 
-![Screenshots](./screenshots_v43.webp)
+### Requirements
+- `git` and Typescript (`tsc`)
+
+### Installation
+- clone repo and `cd` into it
+- run `make all && make install`
+
+Please look at [Makefile](./Makefile) for more info and other options.
+
+![Screenshots](./assets/screenshots_v43.webp)
