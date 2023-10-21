@@ -8,10 +8,11 @@
 _This is a fork that supports Gnome v43+ and uses its own panel icon instead of integrating it to the battery menu._
 
 ### Requirements
-- `git` and Typescript (`tsc`)
+- `git` (or `unzip`) and Typescript (`tsc`)
 
 ### Installation
-- clone repo and `cd` into it
+- Latest version: clone repo and `cd` into it
+- Older versions: download the source from [Releases](https://gitlab.com/LFd3v/gnome-shell-extension-system76-power/-/releases), uncompress and `cd` into it
 - run `make all && make install`
 
 Please look at [Makefile](./Makefile) for more info and other options.

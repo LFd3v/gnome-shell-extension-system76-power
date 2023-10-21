@@ -1,17 +1,18 @@
-const Clutter = imports.gi.Clutter;
-const Gio = imports.gi.Gio;
-const GObject = imports.gi.GObject;
-const St = imports.gi.St;
-const Util = imports.misc.util;
+import Clutter from 'gi://Clutter';
+import Gio from 'gi://Gio';
+import GObject from 'gi://GObject';
+import St from 'gi://St';
+
+import * as Util from 'resource:///org/gnome/shell/misc/util.js';
+
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import * as Dialog from 'resource:///org/gnome/shell/ui/dialog.js';
+import * as ModalDialog from 'resource:///org/gnome/shell/ui/modalDialog.js';
+import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
+import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
+import { Ornament } from 'resource:///org/gnome/shell/ui/popupMenu.js';
+
 const ByteArray = imports.byteArray;
-
-const Dialog = imports.ui.dialog;
-const Main = imports.ui.main;
-const ModalDialog = imports.ui.modalDialog;
-const PopupMenu = imports.ui.popupMenu;
-const Ornament = imports.ui.popupMenu.Ornament;
-const PanelMenu = imports.ui.panelMenu;
-
 const Lang = imports.lang;
 
 const PowerDaemon = Gio.DBusProxy.makeProxyWrapper(
@@ -82,28 +83,27 @@ let DISPLAY_REQUIRES_NVIDIA = false;
 let ext: Ext | null = null;
 
 function log(text: string) {
-    global.log("gnome-shell-extension-system76-power: " + text);
+    (globalThis as any).log("gnome-shell-extension-system76-power: " + text);
 }
 
-// @ts-ignore
-function init() {
-    let file = Gio.File.new_for_path(DMI_PRODUCT_VERSION_PATH);
-    let [, contents] = file.load_contents(null);
-    PRODUCT_VERSION = ByteArray.toString(contents).trim();
-    DISPLAY_REQUIRES_NVIDIA = -1 !== DISCRETE_EXTERNAL_DISPLAY_MODELS.indexOf(PRODUCT_VERSION);
-}
-
-// @ts-ignore
-function enable() {
-    if (null === ext) {
-        ext = new Ext();
+export default class System76PowerExtension {
+    init() {
+        let file = Gio.File.new_for_path(DMI_PRODUCT_VERSION_PATH);
+        let [, contents] = file.load_contents(null);
+        PRODUCT_VERSION = ByteArray.toString(contents).trim();
+        DISPLAY_REQUIRES_NVIDIA = -1 !== DISCRETE_EXTERNAL_DISPLAY_MODELS.indexOf(PRODUCT_VERSION);
     }
-}
 
-// @ts-ignore
-function disable() {
-    if (ext) ext.destroy();
-    ext = null;
+    enable() {
+        if (null === ext) {
+            ext = new Ext();
+        }
+    }
+
+    disable() {
+        if (ext) ext.destroy();
+        ext = null;
+    }
 }
 
 var PopDialog = GObject.registerClass(
