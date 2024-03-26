@@ -115,7 +115,7 @@ var PopDialog = GObject.registerClass(
 
             // NOTE: Icons were removed in 3.36
             this._content = new Dialog.MessageDialogContent({ title, description });
-            this.contentLayout.add(this._content);
+            this.contentLayout.add_child(this._content);
         }
     }
 );
@@ -142,9 +142,9 @@ var PopupGraphicsMenuItem = GObject.registerClass(
                 this.description.hide();
             }
 
-            this.box.add(this.label);
-            this.box.add(this.description);
-            this.actor.add(this.box);
+            this.box.add_child(this.label);
+            this.box.add_child(this.description);
+            this.actor.add_child(this.box);
             this.actor.label_actor = this.box;
         }
     }
@@ -186,7 +186,7 @@ var PanelIndicator = GObject.registerClass(
             style_class: 'system-status-icon'
         });
 
-        this._binProfile.add_actor(this._iconProfile);
+        this._binProfile.add_child(this._iconProfile);
 
         this._indicatorLayout.add_child(this._binProfile);
 
