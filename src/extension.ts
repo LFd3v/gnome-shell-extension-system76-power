@@ -61,6 +61,7 @@ const DISCRETE_EXTERNAL_DISPLAY_MODELS = [
     "addw1",
     "addw2",
     "addw3",
+    "addw4",
     "bonw15",
     "gaze17-3050",
     "gaze17-3060-b",
@@ -74,6 +75,7 @@ const DISCRETE_EXTERNAL_DISPLAY_MODELS = [
     "oryp9",
     "oryp10",
     "oryp11",
+    "oryp12",
     "serw13",
 ];
 
@@ -113,7 +115,7 @@ var PopDialog = GObject.registerClass(
 
             // NOTE: Icons were removed in 3.36
             this._content = new Dialog.MessageDialogContent({ title, description });
-            this.contentLayout.add(this._content);
+            this.contentLayout.add_child(this._content);
         }
     }
 );
@@ -140,9 +142,9 @@ var PopupGraphicsMenuItem = GObject.registerClass(
                 this.description.hide();
             }
 
-            this.box.add(this.label);
-            this.box.add(this.description);
-            this.actor.add(this.box);
+            this.box.add_child(this.label);
+            this.box.add_child(this.description);
+            this.actor.add_child(this.box);
             this.actor.label_actor = this.box;
         }
     }
@@ -184,7 +186,7 @@ var PanelIndicator = GObject.registerClass(
             style_class: 'system-status-icon'
         });
 
-        this._binProfile.add_actor(this._iconProfile);
+        this._binProfile.add_child(this._iconProfile);
 
         this._indicatorLayout.add_child(this._binProfile);
 
@@ -353,7 +355,7 @@ export class Ext {
         obj.connect('activate', (item: any) => {
             this.reset_profile_ornament();
             dbus_method.call(this.bus, () => {
-                item.setOrnament(Ornament.DOT);
+                item.setOrnament(Ornament.CHECK);
             });
         });
         this.power_menu.addMenuItem(obj);
@@ -374,7 +376,7 @@ export class Ext {
             obj = graphics_profiles.nvidia;
         }
 
-        obj.setOrnament(Ornament.DOT);
+        obj.setOrnament(Ornament.CHECK);
     }
 
     set_power_profile_ornament(active_profile: string) {
@@ -389,7 +391,7 @@ export class Ext {
             obj = this.performance;
         }
 
-        if (obj) obj.setOrnament(Ornament.DOT);
+        if (obj) obj.setOrnament(Ornament.CHECK);
 
         log("power profile was set: '" + active_profile + "'");
     }
